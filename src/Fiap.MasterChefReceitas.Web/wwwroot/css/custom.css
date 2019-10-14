@@ -1,0 +1,28 @@
+﻿.row {
+    margin-right: 0px; 
+}
+
+.masthead {
+    height: 100vh;
+    min-height: 500px;
+    background-image: url('../img/cheff.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-top: -17px;
+}
+
+.py-5 {
+    padding-top: 0px !important;
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 100%;
+        padding-right: 0px;
+        padding-left: 0px;
+        margin-right: 0px;
+        margin-left: 0px;
+    }
+}
+
