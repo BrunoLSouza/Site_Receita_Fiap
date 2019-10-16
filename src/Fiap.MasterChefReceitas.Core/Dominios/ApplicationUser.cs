@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Fiap.MasterChefReceitas.Core.Dominios
+namespace Fiap.MasterChefReceitas.Core
 {
-    class ApplicationUser
+    public class ApplicationUser : IdentityUser
     {
     }
 }

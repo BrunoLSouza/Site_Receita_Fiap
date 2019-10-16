@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29123.88
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fiap.MasterChefReceitas.Web", "src\Fiap.MasterChefReceitas.Web\Fiap.MasterChefReceitas.Web.csproj", "{3DDF24E1-87D0-4FBF-A732-56EFB581037B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fiap.MasterChefReceitas.Api", "src\Fiap.MasterChefReceitas.Api\Fiap.MasterChefReceitas.Api.csproj", "{91347513-87FE-4038-AD4E-9AE0A47F4A36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fiap.MasterChefReceitas.Core", "Fiap.MasterChefReceitas.Core\Fiap.MasterChefReceitas.Core.csproj", "{3281A6E8-6689-4FF0-9D78-6363881181F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fiap.MasterChefReceitas.Core", "src\Fiap.MasterChefReceitas.Core\Fiap.MasterChefReceitas.Core.csproj", "{01AF6169-043C-4EE6-9F42-3ED9B8A6DC77}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fiap.MasterChefReceitas.Api", "src\Fiap.MasterChefReceitas.Api\Fiap.MasterChefReceitas.Api.csproj", "{91347513-87FE-4038-AD4E-9AE0A47F4A36}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fiap.MasterChefReceitas.Web", "src\Fiap.MasterChefReceitas.Web\Fiap.MasterChefReceitas.Web.csproj", "{DE5BFBA9-5503-4545-89CF-B4750628DCB1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,18 +15,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3DDF24E1-87D0-4FBF-A732-56EFB581037B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3DDF24E1-87D0-4FBF-A732-56EFB581037B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3DDF24E1-87D0-4FBF-A732-56EFB581037B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3DDF24E1-87D0-4FBF-A732-56EFB581037B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3281A6E8-6689-4FF0-9D78-6363881181F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3281A6E8-6689-4FF0-9D78-6363881181F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3281A6E8-6689-4FF0-9D78-6363881181F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3281A6E8-6689-4FF0-9D78-6363881181F2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{91347513-87FE-4038-AD4E-9AE0A47F4A36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{91347513-87FE-4038-AD4E-9AE0A47F4A36}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91347513-87FE-4038-AD4E-9AE0A47F4A36}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91347513-87FE-4038-AD4E-9AE0A47F4A36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01AF6169-043C-4EE6-9F42-3ED9B8A6DC77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01AF6169-043C-4EE6-9F42-3ED9B8A6DC77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01AF6169-043C-4EE6-9F42-3ED9B8A6DC77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01AF6169-043C-4EE6-9F42-3ED9B8A6DC77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE5BFBA9-5503-4545-89CF-B4750628DCB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE5BFBA9-5503-4545-89CF-B4750628DCB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE5BFBA9-5503-4545-89CF-B4750628DCB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE5BFBA9-5503-4545-89CF-B4750628DCB1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
