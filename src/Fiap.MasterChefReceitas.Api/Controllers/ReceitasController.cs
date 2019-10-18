@@ -21,11 +21,11 @@ namespace Fiap.MasterChefReceitas.Api.Controllers
         }
 
         // GET: api/Receitas
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Receita>>> GetReceitas(int skip, int take)
+        [HttpGet("{id}/{id2}")]
+        public async Task<ActionResult<IEnumerable<Receita>>> GetReceitas(int id, int id2)
         {
             // skip = pula - take = pegar
-            return _receitaRepositorio.ObterTodosPaginado(take,skip).ToList();
+            return _receitaRepositorio.ObterTodosPaginado(id2,id).ToList();
         }
 
         // GET: api/Receitas/5

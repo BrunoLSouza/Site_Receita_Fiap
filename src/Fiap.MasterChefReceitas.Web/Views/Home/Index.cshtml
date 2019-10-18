@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<Fiap.MasterChefReceitas.Web.Models.ReceitaViewModel>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -17,6 +19,47 @@
 <br />
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.IdReceita)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TituloReceita)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Rendimento)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TempoPreparo)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdReceita)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TituloReceita)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Rendimento)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TempoPreparo)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Editar", "Editar", "Receita", new { id = item.IdReceita }) |
+                        @Html.ActionLink("Detalhe", "Detalhe", "Receita", new { id = item.IdReceita }) |
+                        @Html.ActionLink("Deletar", "Deletar", "Receita", new { id = item.IdReceita })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>

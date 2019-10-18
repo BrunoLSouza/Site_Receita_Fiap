@@ -5,14 +5,23 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Fiap.MasterChefReceitas.Web.Models;
+using Fiap.MasterChefReceitas.Web.Services;
 
 namespace Fiap.MasterChefReceitas.Web.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly ReceitaService _receitaService;
+
+        public HomeController(ReceitaService receitaService)
         {
-            return View();
+            _receitaService = receitaService;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var listaReceita = await _receitaService.ObterReceitasPaginado(0, 4);
+            return View(listaReceita.ToList());
         }
 
 

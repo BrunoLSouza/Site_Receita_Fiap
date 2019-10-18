@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Fiap.MasterChefReceitas.Web.Services
 {
-    public class ReceitaService
+    public class ReceitaService : IReceitaService
     {
         HttpClient client = new HttpClient();
 
@@ -17,9 +17,9 @@ namespace Fiap.MasterChefReceitas.Web.Services
         {
             try
             {
-                string url = "https://localhost:5001/api/Receitas?skip={0}&take={1}";
+                string url = "https://localhost:5001/api/Receitas/{0}/{1}";
                 var uri = new Uri(string.Format(url, skip, take));
-                var response = await client.GetStringAsync(url);
+                var response = await client.GetStringAsync(uri);
                 var produtos = JsonConvert.DeserializeObject<List<ReceitaViewModel>>(response);
                 return produtos;
             }
@@ -29,15 +29,15 @@ namespace Fiap.MasterChefReceitas.Web.Services
             }
         }
 
-        public async Task<List<ReceitaViewModel>> ObterReceitaPorId(long idReceita)
+        public async Task<ReceitaViewModel> ObterReceitaPorId(long idReceita)
         {
             try
             {
                 string url = "https://localhost:5001/api/Receitas/{0}";
                 var uri = new Uri(string.Format(url, idReceita));
-                var response = await client.GetStringAsync(url);
-                var produtos = JsonConvert.DeserializeObject<List<ReceitaViewModel>>(response);
-                return produtos;
+                var response = await client.GetStringAsync(uri);
+                var produto = JsonConvert.DeserializeObject<ReceitaViewModel>(response);
+                return produto;
             }
             catch (Exception ex)
             {
@@ -84,7 +84,7 @@ namespace Fiap.MasterChefReceitas.Web.Services
         {
             try
             {
-                string url = "https://localhost:5001/api/Receitas";
+                string url = "https://localhost:5001/api/Receitas/{0}";
                 var data = JsonConvert.SerializeObject(receita);
                 var uri = new Uri(string.Format(url, receita.IdReceita));
                 var content = new StringContent(data, Encoding.UTF8, "application/json");
