@@ -42,7 +42,7 @@ namespace Fiap.MasterChefReceitas.Web.Services
         {
             try
             {
-                string url = "http://localhost:51380/api/Receitas/{0}/{1}";
+                string url = "https://localhost:5001/api/Receitas/{0}/{1}";
                 var uri = new Uri(string.Format(url, skip, take));
                 var response = await client.GetStringAsync(uri);
                 var produtos = JsonConvert.DeserializeObject<List<ReceitaViewModel>>(response);
@@ -58,7 +58,7 @@ namespace Fiap.MasterChefReceitas.Web.Services
         {
             try
             {
-                string url = "http://localhost:51380/api/Receitas/{0}";
+                string url = "https://localhost:5001/api/Receitas/{0}";
                 var uri = new Uri(string.Format(url, idReceita));
                 var response = await client.GetStringAsync(uri);
                 var produto = JsonConvert.DeserializeObject<ReceitaViewModel>(response);
