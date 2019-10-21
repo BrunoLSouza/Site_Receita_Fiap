@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Fiap.MasterChefReceitas.Core;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Fiap.MasterChefReceitas.Api.Controllers
 {
@@ -44,6 +45,7 @@ namespace Fiap.MasterChefReceitas.Api.Controllers
 
         // PUT: api/Receitas/5
         [HttpPut("{id}")]
+        [Authorize("Bearer")]
         public async Task<IActionResult> PutReceita(long id, Receita receita)
         {
             if (id != receita.IdReceita)
@@ -72,6 +74,7 @@ namespace Fiap.MasterChefReceitas.Api.Controllers
 
         // POST: api/Receitas
         [HttpPost]
+        [Authorize("Bearer")]
         public async Task<ActionResult<Receita>> PostReceita(Receita receita)
         {
             _receitaRepositorio.Salvar(receita);
@@ -81,6 +84,7 @@ namespace Fiap.MasterChefReceitas.Api.Controllers
 
         //// DELETE: api/Receitas/5
         [HttpDelete("{id}")]
+        [Authorize("Bearer")]
         public async Task<IActionResult> DeleteReceita(long id)
         {
             var existe = _receitaRepositorio.VerificaExiste(id);

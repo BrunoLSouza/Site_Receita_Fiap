@@ -1,9 +1,14 @@
-﻿using Fiap.MasterChefReceitas.Web.Models;
+﻿using Fiap.MasterChefReceitas.Core;
+using Fiap.MasterChefReceitas.Web.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,11 +18,31 @@ namespace Fiap.MasterChefReceitas.Web.Services
     {
         HttpClient client = new HttpClient();
 
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly SignInManager<ApplicationUser> signInManager;
+
+        private readonly IMemoryCache _memoryCache;
+
+        public ReceitaService(UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
+            IMemoryCache memoryCache)
+        {
+            this.userManager = userManager;
+            this.signInManager = signInManager;
+            this._memoryCache = memoryCache;
+            var token = string.Empty;
+            if (signInManager?.Context?.User?.Identity?.Name != null)
+                _memoryCache.TryGetValue(signInManager.Context.User.Identity.Name, out token);
+
+            client.DefaultRequestHeaders.Authorization
+                 = new AuthenticationHeaderValue("Bearer", token);
+        }
+
         public async Task<List<ReceitaViewModel>> ObterReceitasPaginado(int skip, int take)
         {
             try
             {
-                string url = "https://localhost:5001/api/Receitas/{0}/{1}";
+                string url = "http://localhost:51380/api/Receitas/{0}/{1}";
                 var uri = new Uri(string.Format(url, skip, take));
                 var response = await client.GetStringAsync(uri);
                 var produtos = JsonConvert.DeserializeObject<List<ReceitaViewModel>>(response);
@@ -33,7 +58,7 @@ namespace Fiap.MasterChefReceitas.Web.Services
         {
             try
             {
-                string url = "https://localhost:5001/api/Receitas/{0}";
+                string url = "http://localhost:51380/api/Receitas/{0}";
                 var uri = new Uri(string.Format(url, idReceita));
                 var response = await client.GetStringAsync(uri);
                 var produto = JsonConvert.DeserializeObject<ReceitaViewModel>(response);

@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Fiap.MasterChefReceitas.Core;
 using Fiap.MasterChefReceitas.Web.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -25,13 +24,50 @@ namespace Fiap.MasterChefReceitas.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<CookiePolicyOptions>(options =>
+
+            services.AddDbContext<Fiap.MasterChefReceitas.Core.ApplicationDbContext>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("BaseIdentity")));
+
+            services.AddIdentity<ApplicationUser, Microsoft.AspNetCore.Identity.IdentityRole>()
+                    .AddEntityFrameworkStores<Fiap.MasterChefReceitas.Core.ApplicationDbContext>()
+                    .AddDefaultTokenProviders();
+
+            services.Configure<IdentityOptions>(options =>
             {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 6;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+
+                options.Lockout.AllowedForNewUsers = false;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                options.Lockout.MaxFailedAccessAttempts = 5;
+
+                options.User.RequireUniqueEmail = false;
+
+                options.SignIn.RequireConfirmedEmail = false;
+                options.SignIn.RequireConfirmedPhoneNumber = false;
             });
-                        
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Login/Index";
+                options.LogoutPath = "/Login/Logout";
+                options.AccessDeniedPath = "/Login/AccessDenied";
+                options.SlidingExpiration = true;
+                options.Cookie = new CookieBuilder
+                {
+                    //Domain = "",
+                    HttpOnly = true,
+                    Name = ".Fiap.Security.Cookie",
+                    Path = "/",
+                    SameSite = SameSiteMode.Lax,
+                    SecurePolicy = CookieSecurePolicy.SameAsRequest
+                };
+            });
+            services.AddMemoryCache();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddTransient<ReceitaService, ReceitaService>();
@@ -55,7 +91,10 @@ namespace Fiap.MasterChefReceitas.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-            
+
+            app.UseAuthentication();
+
+
 
             app.UseMvc(routes =>
             {
