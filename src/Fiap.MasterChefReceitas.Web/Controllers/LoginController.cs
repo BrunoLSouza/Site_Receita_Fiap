@@ -123,7 +123,30 @@ namespace Fiap.MasterChefReceitas.Web.Controllers
 
         public IActionResult AccessDenied()
         {
-            return View();
+            return View("Index");
         }
+
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangePassword(RegisterViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var user = new ApplicationUser
+            {
+                UserName = model.User
+            };
+
+            var result = await this.userManager.ChangePasswordAsync(user, , model.Password);
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View(model);
+        }
+
     }
 }
