@@ -14,7 +14,7 @@ namespace Fiap.MasterChefReceitas.Core
 
         public string NomeIngrediente { get; set; }
 
-        public int Quantidade { get; set; }
+        public string Quantidade { get; set; }
 
         [ForeignKey("IdReceita")]
         public long IdReceita { get; set; }

@@ -62,7 +62,7 @@ namespace Fiap.MasterChefReceitas.Web.Controllers
 
                 if (result.Succeeded)
                 {
-                    var url = new Uri($"http://localhost:51380/api/Account/{model.User}/{model.Password}");
+                    var url = new Uri($"https://localhost:5001/api/Account/{model.User}/{model.Password}");
                     var response = await new HttpClient().GetStringAsync(url);
                     var json = (JObject)JsonConvert.DeserializeObject(response);
                     string cacheEntry;
