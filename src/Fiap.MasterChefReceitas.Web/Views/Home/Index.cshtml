@@ -28,12 +28,15 @@
         {
             <div class="col-lg-3 col-sm-6 mb-3">
                 <div class="card h-100">
-                    <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                    @*<a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>*@
                     <div class="card-body">
                         <h4 class="card-title">
                             @item.TituloReceita
                         </h4>
-                        <p class="card-text">@item.IdReceita</p>
+                        <hr />
+                        <p class="card-text" style="text-align:left"><span><b>Rendimento: </b></span>@item.Rendimento</p>
+                        <p class="card-text" style="text-align:left"><span><b>Tempo Preparo: </b></span>@item.TempoPreparo</p>
+                        <hr />
                         <a href="@Url.Action("Detalhe", "Receita", new { id = @item.IdReceita })" class="btn btn-primary">Ver Mais</a>
                     </div>
                 </div>

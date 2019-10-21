@@ -4,39 +4,83 @@
     ViewData["Title"] = "Detalhe";
 }
 
-<h1>Detalhe</h1>
+<h4 style="margin-left:20px">Detalhe Receita</h4>
+<hr />
 
-<div>
-    <h4>ReceitaViewModel</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdReceita)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdReceita)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TituloReceita)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TituloReceita)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Rendimento)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Rendimento)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TempoPreparo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TempoPreparo)
-        </dd>
-    </dl>
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="row">
+            <div class="col-md-6">
+                <form id="formReceita" asp-action="Novo">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="TituloReceita" class="control-label">Titulo</label>
+                        <input asp-for="TituloReceita" class="form-control" autocomplete="off" readonly />
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Rendimento" class="control-label">Rendimento </label><span class="small">(Porção)</span>
+                                <input asp-for="Rendimento" class="form-control" readonly />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="TempoPreparo" class="control-label">Tempo Preparo</label><span class="small">(Min)</span>
+                                <input asp-for="TempoPreparo" class="form-control" readonly />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Preparos" class="control-label">Preparo</label>
+                        <textarea asp-for="Preparos" class="form-control preparosTextArea" readonly></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="Salvar" class="btn btn-primary" />
+                        <a href="@Url.Action("Index", "Home")" class="btn btn-secondary">Voltar</a>
+                        <a href="@Url.Action("Editar", "Receita", new { id = Model.IdReceita })" class="btn btn-secondary">Editar</a>
+                        @*@if (SignInManager.IsSignedIn(User))
+                        {
+                            <a href="@Url.Action("Editar", "Receita", new { id = Model.IdReceita })" class="btn btn-secondary">Editar</a>
+                        }*@
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-md-6">
+                <h2>Ingredientes</h2>
+
+                <table id="tblIngredientes" class="table">
+                    <thead>
+                        <tr>
+                            <th>Nome Ingrediente</th>
+                            <th>Quantidade</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Ingredientes)
+                        {
+                            <tr>
+                                <td>@item.NomeIngrediente</td>
+                                <td>@item.Quantidade</td>
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+
+    </div>
+    <div class="col-md-2"></div>
 </div>
 <div>
-    @*@Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |*@
-    <a asp-controller="Home" asp-action="Index">Voltar</a>
+    @*<a href="@Url.Action("Index", "Home")" class="btn btn-primary">Voltar</a>
+        <a href="@Url.Action("Editar", "Receita", new { id = Model.IdReceita })" class="btn btn-primary">Editar</a>*@
 </div>

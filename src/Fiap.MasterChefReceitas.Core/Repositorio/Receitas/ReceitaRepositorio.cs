@@ -23,7 +23,7 @@ namespace Fiap.MasterChefReceitas.Core
 
         public Receita ObterPorId(long id)
         {
-            return _context.Receitas.Find(id);
+            return _context.Receitas.Include(r => r.Ingredientes).Include(r => r.Preparos).Where(r => r.IdReceita == id).FirstOrDefault();
         }
 
         public IEnumerable<Receita> ObterTodosPaginado(int t, int s)
