@@ -9,6 +9,14 @@ a.navbar-brand {
 
 /* Sticky footer styles
 -------------------------------------------------- */
+@font-face {
+    font-family: migrogramma;
+    src: url(../fonts/MicrogrammaDMedExt.ttf);
+}
+
+/*body {
+    font-family: migrogramma;
+}*/
 html {
   font-size: 14px;
 }

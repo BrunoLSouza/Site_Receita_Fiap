@@ -1,40 +1,93 @@
-﻿@model Fiap.MasterChefReceitas.Web.Models.ReceitaViewModel
+﻿@model Fiap.MasterChefReceitas.Web.Models.NovoReceitaViewModel
 
 @{
     ViewData["Title"] = "Novo";
 }
 
-<h1>Novo</h1>
 
-<h4>ReceitaViewModel</h4>
+<h4 style="margin-left:20px">Nova Receita</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Novo">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                @*<hidden asp-for="IdReceita" class="form-control" />*@
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="row">
+            <div class="col-md-6">
+                <form id="formReceita" asp-action="Novo">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="IngredientesTexto" class="form-control" />
+                    <div class="form-group">
+                        <label asp-for="TituloReceita" class="control-label">Titulo</label>
+                        <input asp-for="TituloReceita" class="form-control" autocomplete="off" />
+                        <span asp-validation-for="TituloReceita" class="text-danger"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Rendimento" class="control-label">Rendimento </label><span class="small">(Porção)</span>
+                                <input asp-for="Rendimento" class="form-control" />
+                                <span asp-validation-for="Rendimento" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="TempoPreparo" class="control-label">Tempo Preparo</label><span class="small">(Min)</span>
+                                <input asp-for="TempoPreparo" class="form-control" />
+                                <span asp-validation-for="TempoPreparo" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>                                    
+                    
+                    <div class="form-group">
+                        <label asp-for="Preparos" class="control-label">Preparo</label>
+                        <textarea asp-for="Preparos" class="form-control preparosTextArea"></textarea>
+                        <span asp-validation-for="Preparos" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="Salvar" class="btn btn-primary" />
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="TituloReceita" class="control-label"></label>
-                <input asp-for="TituloReceita" class="form-control" />
-                <span asp-validation-for="TituloReceita" class="text-danger"></span>
+
+            <div class="col-md-6">
+                <h2>Ingredientes</h2>
+                <div class="form-group">
+                    <label id="lblNomeIngrediente" class="control-label">Nome</label>
+                    <input id="txtNomeIngrediente" class="form-control" />
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label id="lblQuantidadeIngrediente" class="control-label">Quantidade</label>
+                            <input id="txtQuantidadeIngrediente" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="button" value="Adicionar" class="btn btn-primary" style="bottom: 17px !important; position: absolute;" onclick="AddIngrediente();" />
+                        </div>
+                    </div>
+                </div>
+
+                <table id="tblIngredientes" class="table">
+                    <thead>
+                        <tr>
+                            <th>Nome Ingrediente</th>
+                            <th>Quantidade</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+
             </div>
-            <div class="form-group">
-                <label asp-for="Rendimento" class="control-label"></label>
-                <input asp-for="Rendimento" class="form-control" />
-                <span asp-validation-for="Rendimento" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TempoPreparo" class="control-label"></label>
-                <input asp-for="TempoPreparo" class="form-control" />
-                <span asp-validation-for="TempoPreparo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Salvar" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
+        
+
     </div>
+    <div class="col-md-2"></div>
 </div>
 
 <div>
@@ -43,4 +96,5 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/js/NovaReceita.js"></script>
 }

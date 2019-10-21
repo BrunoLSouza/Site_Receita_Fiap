@@ -6,6 +6,7 @@ using Fiap.MasterChefReceitas.Web.Models;
 using Fiap.MasterChefReceitas.Web.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace Fiap.MasterChefReceitas.Web.Controllers
 {
@@ -19,11 +20,11 @@ namespace Fiap.MasterChefReceitas.Web.Controllers
         }
 
         // GET: Receita
-        public async Task<IActionResult> Index()
-        {
-            var listaReceita = await _receitaService.ObterReceitasPaginado(0, 4);
-            return View(listaReceita.ToList());
-        }
+        //public async Task<IActionResult> Index()
+        //{
+        //    var listaReceita = await _receitaService.ObterReceitasPaginado(0, 4);
+        //    return View(listaReceita.ToList());
+        //}
         
         // GET: Receita/Details/5
         public async Task<IActionResult> Detalhe(long id)
@@ -41,25 +42,44 @@ namespace Fiap.MasterChefReceitas.Web.Controllers
         // POST: Receita/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Novo(IFormCollection collection)
+        public async Task<IActionResult> Novo(NovoReceitaViewModel receita)
         {
             try
             {
                 // TODO: Add insert logic here
-                if (collection != null)
+                if (receita != null)
                 {
-                    var receitaViewModel = new ReceitaViewModel();
+                    var data = receita.IngredientesTexto.Split("|");
+                    var ingredientes = new List<IngredienteViewModel>();
 
-                    receitaViewModel.TituloReceita = collection["TituloReceita"];
-                    receitaViewModel.Rendimento = Convert.ToInt32(collection["Rendimento"]);
-                    receitaViewModel.TempoPreparo = Convert.ToInt32(collection["TempoPreparo"]);
+                    foreach (var opcao in data)
+                    {
+                        var item = opcao.Split(",");
+                        ingredientes.Add(new IngredienteViewModel() { NomeIngrediente = item[0], Quantidade = item[1]});
+                    }
 
-                    var idReceita = _receitaService.AdicionarReceita(receitaViewModel);
+                    //var receitaViewModel = new ReceitaViewModel();
+
+                    //receitaViewModel.TituloReceita = collection["TituloReceita"];
+                    //receitaViewModel.Rendimento = Convert.ToInt32(collection["Rendimento"]);
+                    //receitaViewModel.TempoPreparo = Convert.ToInt32(collection["TempoPreparo"]);
+
+                    var receitaVM = new ReceitaViewModel()
+                    {
+                        TituloReceita = receita.TituloReceita,
+                        Rendimento = receita.Rendimento,
+                        TempoPreparo = receita.TempoPreparo,
+                        Preparos = receita.Preparos
+                    };
+
+                    receitaVM.Ingredientes = ingredientes;
+                    var retorno = _receitaService.AdicionarReceita(receitaVM);
+                    //return Json(new { Resultado = retorno.Id });
                 }
 
                 return RedirectToAction("Index", "Home");
             }
-            catch
+            catch (Exception ex)
             {
                 return View();
             }
@@ -115,7 +135,8 @@ namespace Fiap.MasterChefReceitas.Web.Controllers
             {
                 // TODO: Add delete logic here
 
-                return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));
+                return View();
             }
             catch
             {

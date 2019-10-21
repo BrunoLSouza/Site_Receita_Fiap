@@ -24,7 +24,7 @@ namespace Fiap.MasterChefReceitas.Web.Services
                 return produtos;
             }
             catch (Exception ex)
-            {
+            {                
                 throw ex;
             }
         }

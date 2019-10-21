@@ -2,18 +2,73 @@
     margin-right: 0px; 
 }
 
+.bg-vinho {
+    background: #D01D37;
+}
+
+div#cookieConsent {
+    z-index: 1;
+    position: relative;
+    width: 99%;
+    margin: 5px auto;
+}
+.navbar a {
+    color: #fff !important;
+    text-decoration: none;
+    font-family: migrogramma;
+}
+
 .masthead {
     height: 100vh;
+    width: 100%;
     min-height: 500px;
-    background-image: url('../img/cheff.jpg');
+    background-image: url(../img/chef.jpg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    margin-top: -17px;
+    position: relative;
+    top: -17px;
 }
 
 .py-5 {
     padding-top: 0px !important;
+}
+
+.logo {
+    width: 265px;
+}
+
+#bodyReceitas{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.cardReceita {
+    margin: 0px 5px 5px 0px;
+}
+
+.linhaTitulo {
+    width: 97%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 5px solid rgba(0, 0, 0, 0.1);
+    text-align: left; /* Para o IE */
+    margin: 0 auto 0 0; /* Para navegadores standard */
+}
+
+.my-4 {
+    margin-bottom: 1.5rem !important;
+    text-align: left;
+    margin-left: 35px;
+    font-family: migrogramma;
+}
+
+.preparosTextArea {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    min-height: 185px;
+    resize: none;
 }
 
 @media (min-width: 1200px) {

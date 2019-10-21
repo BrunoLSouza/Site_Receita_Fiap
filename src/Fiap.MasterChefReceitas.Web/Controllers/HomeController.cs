@@ -20,8 +20,10 @@ namespace Fiap.MasterChefReceitas.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var listaReceita = await _receitaService.ObterReceitasPaginado(0, 4);
-            return View(listaReceita.ToList());
+            var indexViewModal = new IndexViewModel();
+            var listaReceita = await _receitaService.ObterReceitasPaginado(0, 20);
+            indexViewModal.Receitas = listaReceita.ToList();
+            return View(indexViewModal);
         }
 
 
