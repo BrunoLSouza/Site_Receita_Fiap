@@ -62,7 +62,7 @@ namespace Fiap.MasterChefReceitas.Web.Controllers
 
                 if (result.Succeeded)
                 {
-                    var url = new Uri($"https://localhost:5001/api/Account/{model.User}/{model.Password}");
+                    var url = new Uri($"http://localhost:5001/api/Account/{model.User}/{model.Password}");
                     var response = await new HttpClient().GetStringAsync(url);
                     var json = (JObject)JsonConvert.DeserializeObject(response);
                     string cacheEntry;
@@ -81,7 +81,7 @@ namespace Fiap.MasterChefReceitas.Web.Controllers
 
             }
 
-            ModelState.AddModelError(string.Empty, "Login Failed");
+            ModelState.AddModelError(string.Empty, "Falha ao Login");
             return View("Index", model);
         }
 
@@ -126,25 +126,28 @@ namespace Fiap.MasterChefReceitas.Web.Controllers
             return View("Index");
         }
 
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ChangePassword(RegisterViewModel model)
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
         {
             if (!ModelState.IsValid)
                 return View(model);
 
-            var user = new ApplicationUser
-            {
-                UserName = model.User
-            };
+            var user = await this.userManager.FindByNameAsync(model.User);
 
-            var result = await this.userManager.ChangePasswordAsync(user, , model.Password);
+            var result = await this.userManager.ChangePasswordAsync(user, model.PasswordOld, model.Password);
             if (result.Succeeded)
             {
                 return RedirectToAction("Index", "Home");
             }
 
+            ModelState.AddModelError(string.Empty, "Falha ao alterar senha");
             return View(model);
         }
 
