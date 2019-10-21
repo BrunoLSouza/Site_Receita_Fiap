@@ -109,6 +109,9 @@ namespace Fiap.MasterChefReceitas.Api
 
             app.UseHttpsRedirection();
 
+
+            app.UseAuthentication();
+
             new IdentityInitializer(context, userManager, roleManager)
                 .Initialize();
 

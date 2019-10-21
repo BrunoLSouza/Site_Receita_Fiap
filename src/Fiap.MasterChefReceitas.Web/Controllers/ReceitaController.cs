@@ -4,11 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Fiap.MasterChefReceitas.Web.Models;
 using Fiap.MasterChefReceitas.Web.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Fiap.MasterChefReceitas.Web.Controllers
 {
+    [Authorize]
     public class ReceitaController : Controller
     {
         private readonly ReceitaService _receitaService;
