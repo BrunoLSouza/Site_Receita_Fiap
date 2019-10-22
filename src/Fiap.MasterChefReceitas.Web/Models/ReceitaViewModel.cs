@@ -21,6 +21,6 @@ namespace Fiap.MasterChefReceitas.Web.Models
 
         public List<IngredienteViewModel> Ingredientes { get; set; }
 
-        public PreparoViewModel Preparos { get; set; }
+        public string Preparo { get; set; }
     }
 }

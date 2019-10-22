@@ -16,7 +16,6 @@ namespace Fiap.MasterChefReceitas.Core
         }
 
         public DbSet<Receita> Receitas { get; set; }
-        public DbSet<Preparo> Preparos { get; set; }
         public DbSet<Ingrediente> Ingredientes { get; set; }
 
     }

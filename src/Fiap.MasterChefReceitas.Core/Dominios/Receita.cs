@@ -20,6 +20,6 @@ namespace Fiap.MasterChefReceitas.Core
 
         public List<Ingrediente> Ingredientes { get; set; }
 
-        public Preparo Preparos { get; set; }
+        public string Preparo { get; set; }
     }
 }

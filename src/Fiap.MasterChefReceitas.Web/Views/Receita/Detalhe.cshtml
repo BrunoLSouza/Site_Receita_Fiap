@@ -38,8 +38,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label asp-for="Preparos.Instrucoes" class="control-label">Preparo</label>
-                        <textarea asp-for="Preparos.Instrucoes" class="form-control preparosTextArea" readonly></textarea>
+                        <label asp-for="Preparo" class="control-label">Preparo</label>
+                        <textarea asp-for="Preparo" class="form-control preparosTextArea" readonly></textarea>
                     </div>
 
                     <div class="form-group">
@@ -47,6 +47,7 @@
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <a href="@Url.Action("Editar", "Receita", new { id = Model.IdReceita })" class="btn btn-secondary">Editar</a>
+                            <a href="@Url.Action("Deletar", "Receita", new { id = Model.IdReceita })" class="btn btn-secondary">Excluir</a>
                         }
                     </div>
                 </form>

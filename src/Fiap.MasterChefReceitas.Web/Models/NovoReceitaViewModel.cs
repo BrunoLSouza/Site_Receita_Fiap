@@ -24,7 +24,5 @@ namespace Fiap.MasterChefReceitas.Web.Models
 
         [NotMapped]
         public string Preparo { get; set; }
-
-        public PreparoViewModel Preparos { get; set; }
     }
 }

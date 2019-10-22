@@ -23,7 +23,7 @@ namespace Fiap.MasterChefReceitas.Core
 
         public Receita ObterPorId(long id)
         {
-            return _context.Receitas.Include(r => r.Ingredientes).Include(r => r.Preparos).Where(r => r.IdReceita == id).FirstOrDefault();
+            return _context.Receitas.Include(r => r.Ingredientes).Where(r => r.IdReceita == id).FirstOrDefault();
         }
 
         public IEnumerable<Receita> ObterTodosPaginado(int t, int s)
@@ -36,11 +36,11 @@ namespace Fiap.MasterChefReceitas.Core
             try
             {
                 _context.Ingredientes.RemoveRange(_context.Ingredientes.Where(p => p.IdReceita == obj.IdReceita));
-                _context.Preparos.RemoveRange(_context.Preparos.Where(p => p.IdReceita == obj.IdReceita));
+                //_context.Preparos.RemoveRange(_context.Preparos.Where(p => p.IdReceita == obj.IdReceita));
                 obj.Ingredientes.ForEach(
                     p => p.IdIngrediente = 0
                     );
-                obj.Preparos.IdPreparo = 0;
+                //obj.Preparos.IdPreparo = 0;
                 var entry = _context.Entry(obj);
                 _context.Receitas.Attach(obj);
                 entry.State = EntityState.Modified;
@@ -57,6 +57,7 @@ namespace Fiap.MasterChefReceitas.Core
 
         public virtual bool Remover(long id)
         {
+            _context.Ingredientes.RemoveRange(_context.Ingredientes.Where(p => p.IdReceita == id));
             _context.Receitas.Remove(_context.Receitas.Find(id));
             _context.SaveChanges();
 

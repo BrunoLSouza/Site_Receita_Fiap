@@ -75,7 +75,8 @@ namespace Fiap.MasterChefReceitas.Web.Controllers
                         TituloReceita = receita.TituloReceita,
                         Rendimento = receita.Rendimento,
                         TempoPreparo = receita.TempoPreparo,
-                        Preparos = new PreparoViewModel() { Instrucoes = receita.Preparo}
+                        //Preparos = new PreparoViewModel() { Instrucoes = receita.Preparo}
+                        Preparo = receita.Preparo
                     };
 
                     receitaVM.Ingredientes = ingredientes;
@@ -101,7 +102,7 @@ namespace Fiap.MasterChefReceitas.Web.Controllers
                 TituloReceita = receita.TituloReceita,
                 Rendimento = receita.Rendimento,
                 TempoPreparo = receita.TempoPreparo,
-                Preparos = receita.Preparos,
+                Preparo = receita.Preparo,
                 Ingredientes = receita.Ingredientes
             };
 
@@ -156,7 +157,7 @@ namespace Fiap.MasterChefReceitas.Web.Controllers
                         TituloReceita = receita.TituloReceita,
                         Rendimento = receita.Rendimento,
                         TempoPreparo = receita.TempoPreparo,
-                        Preparos = receita.Preparos
+                        Preparo = receita.Preparo
                     };
                     receitaVM.Ingredientes = ingredientes;
                     var idReceita = _receitaService.AlterarReceita(receitaVM);
@@ -173,7 +174,8 @@ namespace Fiap.MasterChefReceitas.Web.Controllers
         // GET: Receita/Delete/5
         public async Task<IActionResult> Deletar(long id)
         {
-            return View();
+            _receitaService.DeletarReceita(id);
+            return RedirectToAction("Index", "Home");
         }
         [Authorize]
         // POST: Receita/Delete/5
