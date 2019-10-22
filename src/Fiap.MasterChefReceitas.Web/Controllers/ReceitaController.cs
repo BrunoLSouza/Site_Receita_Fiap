@@ -11,7 +11,6 @@ using Newtonsoft.Json;
 
 namespace Fiap.MasterChefReceitas.Web.Controllers
 {
-    [Authorize]
     public class ReceitaController : Controller
     {
         private readonly ReceitaService _receitaService;
@@ -34,13 +33,13 @@ namespace Fiap.MasterChefReceitas.Web.Controllers
             var receita = await _receitaService.ObterReceitaPorId(id);
             return View(receita);
         }
-
+        [Authorize]
         // GET: Receita/Create
         public async Task<IActionResult> Novo()
         {
             return View();
         }
-
+        [Authorize]
         // POST: Receita/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -48,18 +47,23 @@ namespace Fiap.MasterChefReceitas.Web.Controllers
         {
             try
             {
-                // TODO: Add insert logic here
+                if (!ModelState.IsValid)
+                    return View(receita);
                 if (receita != null)
                 {
-                    var data = receita.IngredientesTexto.Split("|");
+                    string[] data;
                     var ingredientes = new List<IngredienteViewModel>();
-
-                    foreach (var opcao in data)
+                    if (receita.IngredientesTexto != null && receita.IngredientesTexto.Contains("|"))
                     {
-                        var item = opcao.Split(",");
-                        ingredientes.Add(new IngredienteViewModel() { NomeIngrediente = item[0], Quantidade = item[1]});
+                        data = receita.IngredientesTexto.Split("|");
+                        foreach (var opcao in data)
+                        {
+                            var item = opcao.Split(",");
+                            ingredientes.Add(new IngredienteViewModel() { NomeIngrediente = item[0], Quantidade = item[1] });
+                        }
                     }
 
+                    
                     //var receitaViewModel = new ReceitaViewModel();
 
                     //receitaViewModel.TituloReceita = collection["TituloReceita"];
@@ -71,7 +75,7 @@ namespace Fiap.MasterChefReceitas.Web.Controllers
                         TituloReceita = receita.TituloReceita,
                         Rendimento = receita.Rendimento,
                         TempoPreparo = receita.TempoPreparo,
-                        Preparos = receita.Preparos
+                        Preparos = new PreparoViewModel() { Instrucoes = receita.Preparo}
                     };
 
                     receitaVM.Ingredientes = ingredientes;
@@ -86,7 +90,7 @@ namespace Fiap.MasterChefReceitas.Web.Controllers
                 return View();
             }
         }
-
+        [Authorize]
         // GET: Receita/Edit/5
         public async Task<IActionResult> Editar(long id)
         {
@@ -119,7 +123,7 @@ namespace Fiap.MasterChefReceitas.Web.Controllers
 
             return View(receitaVM);
         }
-
+        [Authorize]
         // POST: Receita/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -165,13 +169,13 @@ namespace Fiap.MasterChefReceitas.Web.Controllers
                 return View();
             }
         }
-
+        [Authorize]
         // GET: Receita/Delete/5
         public async Task<IActionResult> Deletar(long id)
         {
             return View();
         }
-
+        [Authorize]
         // POST: Receita/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
