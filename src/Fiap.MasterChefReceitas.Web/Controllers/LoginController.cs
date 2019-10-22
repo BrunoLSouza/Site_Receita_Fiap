@@ -70,8 +70,7 @@ namespace Fiap.MasterChefReceitas.Web.Controllers
                     {
                         cacheEntry = json["accessToken"].Value<string>();
 
-                        var cacheEntryOptions = new MemoryCacheEntryOptions()
-                            .SetSlidingExpiration(TimeSpan.FromSeconds(600));
+                        var cacheEntryOptions = new MemoryCacheEntryOptions();
 
                         _memoryCache.Set(model.User, cacheEntry, cacheEntryOptions);
                     }

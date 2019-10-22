@@ -13,6 +13,7 @@ namespace Fiap.MasterChefReceitas.Web.Models
 
         public string NomeIngrediente { get; set; }
 
+        [Range(0.0, int.MaxValue)]
         public string Quantidade { get; set; }
     }
 }

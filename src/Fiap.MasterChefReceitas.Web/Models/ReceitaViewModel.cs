@@ -12,9 +12,11 @@ namespace Fiap.MasterChefReceitas.Web.Models
         public long IdReceita { get; set; }
 
         public string TituloReceita { get; set; }
+        [Range(0.0, int.MaxValue)]
 
         public int Rendimento { get; set; }
 
+        [Range(0.0, int.MaxValue)]
         public int TempoPreparo { get; set; }
 
         public List<IngredienteViewModel> Ingredientes { get; set; }

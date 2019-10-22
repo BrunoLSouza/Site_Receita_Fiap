@@ -1,5 +1,8 @@
 ﻿@model Fiap.MasterChefReceitas.Web.Models.ReceitaViewModel
-
+@using Microsoft.AspNetCore.Identity
+@using Fiap.MasterChefReceitas.Core
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 @{
     ViewData["Title"] = "Detalhe";
 }
@@ -35,18 +38,16 @@
                     </div>
 
                     <div class="form-group">
-                        <label asp-for="Preparos" class="control-label">Preparo</label>
-                        <textarea asp-for="Preparos" class="form-control preparosTextArea" readonly></textarea>
+                        <label asp-for="Preparos.Instrucoes" class="control-label">Preparo</label>
+                        <textarea asp-for="Preparos.Instrucoes" class="form-control preparosTextArea" readonly></textarea>
                     </div>
 
                     <div class="form-group">
-                        <input type="submit" value="Salvar" class="btn btn-primary" />
                         <a href="@Url.Action("Index", "Home")" class="btn btn-secondary">Voltar</a>
-                        <a href="@Url.Action("Editar", "Receita", new { id = Model.IdReceita })" class="btn btn-secondary">Editar</a>
-                        @*@if (SignInManager.IsSignedIn(User))
+                        @if (SignInManager.IsSignedIn(User))
                         {
                             <a href="@Url.Action("Editar", "Receita", new { id = Model.IdReceita })" class="btn btn-secondary">Editar</a>
-                        }*@
+                        }
                     </div>
                 </form>
             </div>
