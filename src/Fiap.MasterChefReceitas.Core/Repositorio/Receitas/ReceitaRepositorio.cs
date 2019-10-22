@@ -8,7 +8,7 @@ namespace Fiap.MasterChefReceitas.Core
 {
     public class ReceitaRepositorio : IReceitaRepositorio
     {
-       private ApplicationDbContext _context;
+        private ApplicationDbContext _context;
 
         public ReceitaRepositorio(ApplicationDbContext context)
         {
@@ -33,10 +33,24 @@ namespace Fiap.MasterChefReceitas.Core
 
         public virtual Receita Alterar(Receita obj)
         {
-            var entry = _context.Entry(obj);
-            _context.Receitas.Attach(obj);
-            entry.State = EntityState.Modified;
-            _context.SaveChanges();
+            try
+            {
+                _context.Ingredientes.RemoveRange(_context.Ingredientes.Where(p => p.IdReceita == obj.IdReceita));
+                _context.Preparos.RemoveRange(_context.Preparos.Where(p => p.IdReceita == obj.IdReceita));
+                obj.Ingredientes.ForEach(
+                    p => p.IdIngrediente = 0
+                    );
+                obj.Preparos.IdPreparo = 0;
+                var entry = _context.Entry(obj);
+                _context.Receitas.Attach(obj);
+                entry.State = EntityState.Modified;
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+
+            }
+
 
             return obj;
         }
