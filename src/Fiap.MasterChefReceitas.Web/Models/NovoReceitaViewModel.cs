@@ -11,13 +11,11 @@ namespace Fiap.MasterChefReceitas.Web.Models
     {
         [Key]
         public long IdReceita { get; set; }
-
+        [MinLength(3, ErrorMessage = "A receita precisa ter no minimo 3 caracteres")]
         public string TituloReceita { get; set; }
-        [Range(0.0, int.MaxValue)]
-
+        [Range(0.0, int.MaxValue, ErrorMessage = "Valor Invalido")]
         public int Rendimento { get; set; }
-        [Range(0.0, int.MaxValue)]
-
+        [Range(0.0, int.MaxValue, ErrorMessage = "Valor Invalido")]
         public int TempoPreparo { get; set; }
 
         public string IngredientesTexto { get; set; }
