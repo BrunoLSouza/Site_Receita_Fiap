@@ -14,8 +14,8 @@
             <div class="col-md-6">
                 <form asp-action="Editar">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <input asp-for="IdReceita" class="form-control" />
-                    <input asp-for="IngredientesTexto" class="form-control" />
+                    <input type="hidden" asp-for="IdReceita" class="form-control" />
+                    <input type="hidden" asp-for="IngredientesTexto" class="form-control" />
 
                     <div class="form-group">
                         <label asp-for="TituloReceita" class="control-label">Titulo</label>
@@ -41,9 +41,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label asp-for="Preparos" class="control-label">Preparo</label>
-                        <textarea asp-for="Preparos" class="form-control preparosTextArea"></textarea>
-                        <span asp-validation-for="Preparos" class="text-danger"></span>
+                        <label asp-for="Preparos.Instrucoes" class="control-label">Preparo</label>
+                        <textarea asp-for="Preparos.Instrucoes" class="form-control preparosTextArea"></textarea>
                     </div>
                     <div class="form-group">
                         <input type="submit" value="Alterar" class="btn btn-primary" />
