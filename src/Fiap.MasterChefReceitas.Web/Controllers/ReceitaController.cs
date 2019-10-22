@@ -91,27 +91,71 @@ namespace Fiap.MasterChefReceitas.Web.Controllers
         public async Task<IActionResult> Editar(long id)
         {
             var receita = await _receitaService.ObterReceitaPorId(id);
-            return View(receita);
+            var receitaVM = new NovoReceitaViewModel()
+            {
+                IdReceita = receita.IdReceita,
+                TituloReceita = receita.TituloReceita,
+                Rendimento = receita.Rendimento,
+                TempoPreparo = receita.TempoPreparo,
+                Preparos = receita.Preparos,
+                Ingredientes = receita.Ingredientes
+            };
+
+            var ingredientesTexto = "";
+            foreach (var item in receita.Ingredientes)
+            {
+                var txt = item.NomeIngrediente + "," + item.Quantidade;
+                if (ingredientesTexto.Length > 0)
+                {
+                    txt = "|" + txt;
+                }
+
+                ingredientesTexto = ingredientesTexto + txt;
+
+            }
+
+            receitaVM.IngredientesTexto = ingredientesTexto;
+
+
+            return View(receitaVM);
         }
 
         // POST: Receita/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Editar(long id, IFormCollection collection)
+        public async Task<IActionResult> Editar(long id, NovoReceitaViewModel receita)
         {
             try
             {
                 // TODO: Add update logic hereif (collection != null)
-                if (collection != null && id == Convert.ToInt64(collection["IdReceita"]))
+                if (receita != null && id == receita.IdReceita)
                 {
-                    var receitaViewModel = new ReceitaViewModel();
+                    //var receitaViewModel = new ReceitaViewModel();
 
-                    receitaViewModel.IdReceita = Convert.ToInt32(collection["IdReceita"]);
-                    receitaViewModel.TituloReceita = collection["TituloReceita"];
-                    receitaViewModel.Rendimento = Convert.ToInt32(collection["Rendimento"]);
-                    receitaViewModel.TempoPreparo = Convert.ToInt32(collection["TempoPreparo"]);
+                    //receitaViewModel.IdReceita = Convert.ToInt32(collection["IdReceita"]);
+                    //receitaViewModel.TituloReceita = collection["TituloReceita"];
+                    //receitaViewModel.Rendimento = Convert.ToInt32(collection["Rendimento"]);
+                    //receitaViewModel.TempoPreparo = Convert.ToInt32(collection["TempoPreparo"]);
 
-                    var idReceita = _receitaService.AlterarReceita(receitaViewModel);
+                    var data = receita.IngredientesTexto.Split("|");
+                    var ingredientes = new List<IngredienteViewModel>();
+
+                    foreach (var opcao in data)
+                    {
+                        var item = opcao.Split(",");
+                        ingredientes.Add(new IngredienteViewModel() { NomeIngrediente = item[0], Quantidade = item[1] });
+                    }
+
+                    var receitaVM = new ReceitaViewModel()
+                    {
+                        IdReceita = receita.IdReceita,
+                        TituloReceita = receita.TituloReceita,
+                        Rendimento = receita.Rendimento,
+                        TempoPreparo = receita.TempoPreparo,
+                        Preparos = receita.Preparos
+                    };
+                    receitaVM.Ingredientes = ingredientes;
+                    var idReceita = _receitaService.AlterarReceita(receitaVM);
                 }
 
                 return RedirectToAction("Index", "Home");

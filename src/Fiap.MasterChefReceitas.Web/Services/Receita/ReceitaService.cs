@@ -42,7 +42,7 @@ namespace Fiap.MasterChefReceitas.Web.Services
         {
             try
             {
-                string url = "http://localhost:5001/api/Receitas/{0}/{1}";
+                string url = "https://localhost:5001/api/Receitas/{0}/{1}";
                 var uri = new Uri(string.Format(url, skip, take));
                 var response = await client.GetStringAsync(uri);
                 var produtos = JsonConvert.DeserializeObject<List<ReceitaViewModel>>(response);
@@ -58,7 +58,7 @@ namespace Fiap.MasterChefReceitas.Web.Services
         {
             try
             {
-                string url = "http://localhost:5001/api/Receitas/{0}";
+                string url = "https://localhost:5001/api/Receitas/{0}";
                 var uri = new Uri(string.Format(url, idReceita));
                 var response = await client.GetStringAsync(uri);
                 var produto = JsonConvert.DeserializeObject<ReceitaViewModel>(response);
@@ -74,7 +74,7 @@ namespace Fiap.MasterChefReceitas.Web.Services
         {
             try
             {
-                string url = "http://localhost:5001/api/Receitas";
+                string url = "https://localhost:5001/api/Receitas";
                 var data = JsonConvert.SerializeObject(receita);
                 var content = new StringContent(data, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = null;
@@ -95,7 +95,7 @@ namespace Fiap.MasterChefReceitas.Web.Services
         {
             try
             {
-                string url = "http://localhost:5001/api/Receitas/{0}";
+                string url = "https://localhost:5001/api/Receitas/{0}";
                 var uri = new Uri(string.Format(url, idReceita));
                 var response = await client.DeleteAsync(uri);
             }
@@ -109,7 +109,7 @@ namespace Fiap.MasterChefReceitas.Web.Services
         {
             try
             {
-                string url = "http://localhost:5001/api/Receitas/{0}";
+                string url = "https://localhost:5001/api/Receitas/{0}";
                 var data = JsonConvert.SerializeObject(receita);
                 var uri = new Uri(string.Format(url, receita.IdReceita));
                 var content = new StringContent(data, Encoding.UTF8, "application/json");

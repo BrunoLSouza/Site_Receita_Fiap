@@ -18,7 +18,9 @@ namespace Fiap.MasterChefReceitas.Web.Models
         public int TempoPreparo { get; set; }
 
         public string IngredientesTexto { get; set; }
-               
+
+        public List<IngredienteViewModel> Ingredientes { get; set; }
+
         public PreparoViewModel Preparos { get; set; }
     }
 }
